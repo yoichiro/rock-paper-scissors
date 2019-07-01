@@ -50,13 +50,11 @@ app.intent('Show', (conv, param) => {
   const ssml = `
     <speak>
       <p>Ok, I decided my hand, too.</p>
-      <wait time="500ms" />
       <p>Rock, paper, scissors, shoot!</p>
-      <wait time="400ms" />
       <p>You showed ${userChoice}.</p>
       <p>I showed ${actionChoice}.</p>
       <p>${message}</p>
-      <wait time="400ms" />
+      <break time="400ms" />
       <p>Do you want to play again?</p>
     </speak>`;
   conv.ask(ssml);
