@@ -1,7 +1,7 @@
 const functions = require('firebase-functions');
 const {
   dialogflow,
-  ImmersiveResponse
+  HtmlResponse
 } = require('actions-on-google');
 
 const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG);
@@ -14,8 +14,8 @@ const app = dialogflow({
 
 app.intent('Show - yes', conv => {
   conv.ask('Ok. Which do you want to show? Rock? Paper? Or, Scissors?');
-  conv.ask(new ImmersiveResponse({
-    state: {
+  conv.ask(new HtmlResponse({
+    data: {
       scene: 'restart'
     }
   }));
@@ -58,9 +58,9 @@ app.intent('Show', (conv, param) => {
       <p>Do you want to play again?</p>
     </speak>`;
   conv.ask(ssml);
-  // ImmersiveResponse object with information to update the screen.
-  conv.ask(new ImmersiveResponse({
-    state: {
+  // HtmlResponse object with information to update the screen.
+  conv.ask(new HtmlResponse({
+    data: {
       scene: 'result',
       userChoice,
       actionChoice,
@@ -71,7 +71,7 @@ app.intent('Show', (conv, param) => {
 
 app.intent('Default Welcome Intent', conv => {
   conv.ask('Which do you want to show? Rock? Paper? Or, Scissors?');
-  conv.ask(new ImmersiveResponse({
+  conv.ask(new HtmlResponse({
     url: `https://${firebaseConfig.projectId}.firebaseapp.com/`
   }));
 });
